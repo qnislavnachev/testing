@@ -13,6 +13,12 @@ public class SumatorTest {
         String result = testone.sum("3", "5");
         assertEquals("8", result);
     }
+    @Test
+    public void corrrectSymbolRecieve() {
+        Sumator testone = new Sumator();
+        String result = testone.sum("22", "11");
+        assertEquals("33", result);
+    }
 
     @Test(expected = IllegalArgumentException.class)
     public void bothArgumentsAreNull() {
@@ -22,7 +28,7 @@ public class SumatorTest {
 
     @Test(expected = NumberFormatException.class)
     public void testNumberFormatException() {
-        Sumator test = new Sumator();
-        String result = test.sum(":", "$");
+        Sumator sumator = new Sumator();
+        sumator.sum(":","#");
     }
 }
