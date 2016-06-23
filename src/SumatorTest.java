@@ -4,15 +4,17 @@
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class SumatorTest {
+
     @Test
     public void correctSymbolRecieve() {
         Sumator testone = new Sumator();
         String result = testone.sum("3", "5");
         assertEquals("8", result);
     }
+
     @Test
     public void corrrectSymbolRecieve() {
         Sumator testone = new Sumator();
@@ -29,6 +31,6 @@ public class SumatorTest {
     @Test(expected = NumberFormatException.class)
     public void testNumberFormatException() {
         Sumator sumator = new Sumator();
-        sumator.sum(":","#");
+        sumator.sum(":", "#");
     }
 }

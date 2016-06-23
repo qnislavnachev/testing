@@ -14,7 +14,7 @@ public class Demo {
         String sum = "";
         try {
             sum = su.sum(str1, str2);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new IntegersOnlyStringExceptions();
         }
 
