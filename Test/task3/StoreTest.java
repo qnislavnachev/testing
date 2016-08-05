@@ -45,7 +45,7 @@ public class StoreTest {
 
     @Test
     public void testSort() throws Exception {
-        Products[] arr = new Products[]{dishWasher,tv,fridge};
+        Products[] arr = new Products[] { dishWasher,tv,fridge };
         store.addProduct(tv,4);
         store.addProduct(fridge,2);
         store.addProduct(dishWasher,6);
