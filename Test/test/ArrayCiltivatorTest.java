@@ -16,16 +16,19 @@ public class ArrayCiltivatorTest {
 
     @Test
     public void getSumTest() throws Exception {
-        int sum = 0;
-        for(int i = 0;i < arr.length;i++){
-        sum += arr[i];
-        }
-        assertFalse(array.getSum(arr) != sum);
+        assertTrue(array.getSum(arr) == 14);
     }
 
     @Test
     public void reverseArrayTest() throws Exception {
         assertArrayEquals(array.reverseArray(arr), reversedArray);
+    }
+
+    @Test
+    public void printElementsTest() throws Exception {
+        assertArrayEquals(array.printArrayElements(arr), arr);
+        assertArrayEquals(array.printArrayElements(reversedArray),reversedArray);
+
     }
 
 }

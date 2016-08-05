@@ -22,9 +22,9 @@ public class ArrayCiltivator {
         return sum;
     }
 
-    public void printArrayElements(int [] arr){
+    public int[] printArrayElements(int [] arr){
+        return arr;
 
-        System.out.print(Arrays.toString(arr));
     }
 
     public int[] reverseArray(int [] arr){
