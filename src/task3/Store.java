@@ -3,7 +3,7 @@ package task3;
 import java.util.*;
 
 public class Store {
-    private Map<Products, Integer> storeList;
+    private Map<String, Products> storeList;
 
     public Store() {
         storeList = new HashMap<>();
@@ -11,48 +11,53 @@ public class Store {
     }
 
     public int getAmount(Products product) {
-        return storeList.get(product);
+        return product.getQuantity();
 
+    }
+
+    public int availableOfQuantity(String product) {
+        int value = 0;
+        for (Products each : storeList.values()) {
+            if (each.getName() == product) {
+                value = each.getQuantity();
+            }
+        }
+        return value;
     }
 
     public void addProduct(Products product, int amount) {
-        if (!storeList.containsKey(product)) {
-            if (product.getMaxAmount() >= amount) {
-                storeList.put(product, amount);
-            } else {
-                throw new NoEnoughSpace("No Enough Space!");
-            }
+        if (!storeList.containsKey(product.getName()) && product.getMaxAmount() >= amount) {
+            storeList.put(product.getName(), product);
+            product.setQuantity(amount);
+        } else if (storeList.containsKey(product.getName()) && product.getMaxAmount() >= (getAmount(product) + amount)) {
+            int currentAmount = getAmount(storeList.get(product.getName()));
+            storeList.get(product.getName()).setQuantity(currentAmount + amount);
         } else {
-            if ((getAmount(product) + amount) >= amount){
-                storeList.replace(product, getAmount(product) + amount);
-            } else {
-                throw new NoEnoughSpace("No Enough Space!");
-            }
-
+            throw new NoEnoughSpace("No Enough Space");
         }
     }
 
-    public void sellProduct(Products product, int amount) {
-        if (getAmount(product) == 0) {
+
+    public void sellProduct(String product, int amount) {
+        Products p = storeList.get(product);
+        if (getAmount(p) == 0) {
             storeList.remove(product);
+        }
+        if (getAmount(p) >= amount) {
+            p.setQuantity(p.getQuantity() - amount);
         } else {
-            if (storeList.containsKey(product) && getAmount(product) >= amount) {
-                storeList.replace(product, getAmount(product) - amount);
-            } else {
-                throw new NoEnoughProducts("No enough products");
-            }
+            throw new NoEnoughProducts("No Enough Products");
         }
 
     }
 
-    public void printProducts() {
-        for (Products each : storeList.keySet()) {
-            System.out.println("Key = " + each + ", Available amount = " + storeList.get(each));
-        }
-    }
+
+    /**
+     * @return list of products sort by price
+     */
 
     public List<Products> sort() {
-        List<Products> list = new ArrayList<>(storeList.keySet());
+        List<Products> list = new ArrayList<>(storeList.values());
         Collections.sort(list, new Comparator<Products>() {
             @Override
             public int compare(Products o1, Products o2) {

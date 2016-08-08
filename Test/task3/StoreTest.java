@@ -1,54 +1,52 @@
 package task3;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class StoreTest {
 
     private Store store = new Store();
-    private Products tv = new Products("Samsung", 50 , 5);
-    private Products fridge = new Products("Neo", 70 , 4);
-    private Products dishWasher = new Products("Neo", 10, 10);
 
     @Test
-    public void testAddProduct() throws Exception {
-        store.addProduct(tv,2);
-        assertTrue(2 == store.getAmount(tv));
+    public void addProduct() throws Exception {
+        store.addProduct(new Products("Samsung", 50, 5), 2);
+        store.addProduct(new Products("Samsung", 50, 5), 1);
+        assertTrue(3 == store.availableOfQuantity("Samsung"));
     }
 
     @Test
-    public void testAddProductMoreThenOneTimes() throws Exception {
-        store.addProduct(tv,2);
-        store.addProduct(tv,4);
-        assertTrue(6 == store.getAmount(tv));
+    public void addSameProductTwiceThenSellIt() throws Exception {
+        store.addProduct(new Products("Samsung", 50, 5), 1);
+        store.addProduct(new Products("Samsung", 50, 5), 2);
+        store.sellProduct("Samsung", 3);
+        assertTrue(0 == store.availableOfQuantity("Samsung"));
+
+
     }
 
     @Test(expected = NoEnoughSpace.class)
-    public void testAddProductMaxAmount() throws Exception {
-        store.addProduct(tv,6);
+    public void addProductReachMaxAmount() throws Exception {
+        store.addProduct(new Products("Samsung", 50, 2), 6);
     }
 
 
-    @Test
-    public void testSellProduct() throws Exception {
-        store.addProduct(tv,5);
-        store.sellProduct(tv,3);
-        assertTrue(2 == store.getAmount(tv));
-    }
 
     @Test(expected = NoEnoughProducts.class)
     public void testSellProductThrowException() throws Exception {
-        store.addProduct(tv,5);
-        store.sellProduct(tv,3);
-        store.sellProduct(tv,3);
+        store.addProduct(new Products("Samsung", 50, 2), 2);
+        store.sellProduct("Samsung", 3);
     }
 
     @Test
     public void testSort() throws Exception {
-        Products[] arr = new Products[] { dishWasher,tv,fridge };
-        store.addProduct(tv,4);
-        store.addProduct(fridge,2);
-        store.addProduct(dishWasher,6);
+        Products tv = new Products("Samsung", 50, 10);
+        Products tv1 = new Products("Neo", 20, 10);
+        Products tv2 = new Products("Fujitsu", 10, 10);
+        Products[] arr = new Products[]{tv2,tv1,tv};
+        store.addProduct(tv, 4);
+        store.addProduct(tv1, 2);
+        store.addProduct(tv2, 6);
         assertArrayEquals(arr, store.sort().toArray());
 
     }
