@@ -10,22 +10,22 @@ public class SumatorTest {
     Sumator math = new Sumator();
 
     @Test
-    public void SumWithZeroParameters() throws Exception {
+    public void sumWithZeroParameters() throws Exception {
         assertTrue(math.sum("0", "0") == 0);
     }
 
     @Test
-    public void SumWithoutZeroParameters() throws Exception {
+    public void sumWithoutZeroParameters() throws Exception {
         assertTrue(math.sum("1", "3") == 4);
     }
 
     @Test(expected = NumberFormatException.class)
-    public void ExpectedNumberFormatException() throws Exception {
+    public void expectedNumberFormatException() throws Exception {
         assertTrue(math.sum("c", "5") == 5);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void ExpectedIllegalArgumentException() throws Exception {
+    public void expectedIllegalArgumentException() throws Exception {
         double result = 5;
         assertEquals(math.sum(null, "5"), result, 0);
     }
