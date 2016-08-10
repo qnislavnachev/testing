@@ -20,14 +20,20 @@ public class SumatorTest {
     }
 
     @Test(expected = NumberFormatException.class)
-    public void expectedNumberFormatException() throws Exception {
+    public void sumWithOneOfArgumentsIsChar() throws Exception {
         assertTrue(math.sum("c", "5") == 5);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void expectedIllegalArgumentException() throws Exception {
+    public void sumWithFirstArgumentEqualsNull() throws Exception {
         double result = 5;
         assertEquals(math.sum(null, "5"), result, 0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void sumWithSecondArgumentEqualsNull() throws Exception {
+        double result = 5;
+        assertTrue(result == math.sum("5", null));
     }
 
 
