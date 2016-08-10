@@ -10,16 +10,6 @@ public class Store {
 
     }
 
-    public int availableOfQuantity(String product) {
-        int value = 0;
-        for (Product each : storeList.values()) {
-            if (each.getName() == product) {
-                value = each.getQuantity();
-            }
-        }
-        return value;
-    }
-
     public void addProduct(Product product, int amount) {
         if (!storeList.containsKey(product.getName()) && product.getMaxAmount() >= amount) {
             storeList.put(product.getName(), product);
@@ -28,10 +18,19 @@ public class Store {
             int currentAmount = storeList.get(product.getName()).getQuantity();
             storeList.get(product.getName()).setQuantity(currentAmount + amount);
         } else {
-            throw new NoEnoughSpace("No Enough Space");
+            throw new NoEnoughSpace("No Enough Space!");
         }
     }
 
+    public int availableOfQuantity(String key) {
+        int value = 0;
+        for (Product each : storeList.values()) {
+            if (each.getName() == key) {
+                value = each.getQuantity();
+            }
+        }
+        return value;
+    }
 
     public void sellProduct(String product, int amount) {
         Product p = storeList.get(product);
@@ -41,19 +40,19 @@ public class Store {
         if (p.getQuantity() >= amount) {
             p.setQuantity(p.getQuantity() - amount);
         } else {
-            throw new NoEnoughProducts("No Enough Products");
+            throw new NoEnoughProducts("No Enough Products!");
         }
-
     }
 
-    public List<Product> sort() {
+    public List<Product> sortByPrice() {
         List<Product> list = new ArrayList<>(storeList.values());
         Collections.sort(list, new Comparator<Product>() {
             @Override
             public int compare(Product o1, Product o2) {
-                if (o1.getPrice() > o2.getPrice()) {
+                if(o1.getPrice() > o2.getPrice()){
                     return 1;
-                } else if (o1.getPrice() < o2.getPrice()) {
+                }
+                else if (o1.getPrice() < o2.getPrice()){
                     return -1;
                 }
                 return 0;
