@@ -1,18 +1,23 @@
 package task3;
 
-public class Products {
+public class Product {
 
-    private String name;
+    private final String name;
     private int price;
     private int maxAmount;
     private int quantity;
 
-    public Products(String name, int price, int maxAmount) {
+    public Product(String name, int price, int maxAmount) {
         this.name = name;
         this.price = price;
         this.maxAmount = maxAmount;
         this.quantity = 0;
     }
+
+    public Product(String name) {
+        this.name = name;
+    }
+
     public int getQuantity() {
         return quantity;
     }
@@ -21,11 +26,11 @@ public class Products {
         this.quantity = quantity;
     }
 
-    public int getMaxAmount(){
+    public int getMaxAmount() {
         return maxAmount;
     }
 
-    public int getPrice(){
+    public int getPrice() {
         return price;
     }
 
