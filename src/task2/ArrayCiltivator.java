@@ -3,8 +3,16 @@ package task2;
 import java.util.Arrays;
 
 public class ArrayCiltivator {
+    private final int[] arr;
 
-    public int getMinElement(int[] arr) {
+    public ArrayCiltivator(int[] arr) {
+        this.arr = arr;
+    }
+
+    public int getMinElement() {
+        if (arr.length == 0) {
+            System.out.println("There is no elements!");
+        }
         int min = arr[0];
         for (int i = 0; i < arr.length; i++) {
             if (min > arr[i]) {
@@ -14,7 +22,7 @@ public class ArrayCiltivator {
         return min;
     }
 
-    public int getSum(int[] arr) {
+    public int getSum() {
         int sum = 0;
         for (int i = 0; i < arr.length; i++) {
             sum += arr[i];
@@ -22,13 +30,13 @@ public class ArrayCiltivator {
         return sum;
     }
 
-    public void printArrayElements(int[] arr) {
+    public void printArrayElements() {
         System.out.print(Arrays.toString(arr));
 
 
     }
 
-    public int[] reverseArray(int[] arr) {
+    public int[] reverseArray() {
         for (int i = 0; i < arr.length / 2; i++) {
             int tmp = arr[i];
             arr[i] = arr[arr.length - i - 1];
