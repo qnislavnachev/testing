@@ -10,41 +10,46 @@ public class StoreTest {
 
     @Test
     public void addProductTest() throws Exception {
-        store.addProduct(new Product("Samsung", 50, 5), 2);
-        store.addProduct(new Product("Samsung"), 3);
-        assertTrue(5 == store.availableOfQuantity("Samsung"));
+        Product p1 = new Product("Samsung", 50, 10);
+        Product p2 = new Product("Neo", 30, 10);
+        store.addProduct(p1, 5);
+        store.addProduct(p1, 3);
+        store.addProduct(p2, 3);
+        assertTrue(8 == store.availableOfQuantity(p1));
+        assertTrue(3 == store.availableOfQuantity(p2));
     }
 
     @Test
-    public void addProductAndSellIt() throws Exception {
-        store.addProduct(new Product("Samsung", 50, 5), 3);
-        store.sellProduct("Samsung", 3);
-        assertTrue(0 == store.availableOfQuantity("Samsung"));
-    }
-
-    @Test(expected = NoEnoughSpace.class)
-    public void productReachMaxAmount() throws Exception {
-        store.addProduct(new Product("Samsung", 50, 5), 4);
-        store.addProduct(new Product("Samsung"), 2);
-
+    public void sellProductTest() throws Exception {
+        Product p = new Product("Samsung", 50, 10);
+        store.addProduct(p, 4);
+        store.sellProduct(p, 2);
+        assertTrue(2 == store.availableOfQuantity(p));
     }
 
     @Test(expected = NoEnoughProducts.class)
-    public void thereIsNoEnoughProductToSell() throws Exception {
-        store.addProduct(new Product("Samsung", 50, 5), 4);
-        store.sellProduct("Samsung", 5);
+    public void NoEnoughProductsInStoreToSell() throws Exception {
+        Product p = new Product("Neo", 50, 10);
+        store.addProduct(p, 4);
+        store.sellProduct(p, 5);
+    }
+
+    @Test(expected = NoEnoughSpace.class)
+    public void filledWarehouse() throws Exception {
+        Product p = new Product("Neo", 50, 10);
+        store.addProduct(p, 6);
+        store.addProduct(p, 7);
     }
 
     @Test
-    public void sortProductsByPrice() throws Exception {
-        Product product = new Product("Samsung", 70, 5);
-        Product product1 = new Product("Neo", 100, 5);
-        Product product2 = new Product("Fujitsu", 50, 5);
-        store.addProduct(product, 3);
-        store.addProduct(product1, 4);
-        store.addProduct(product2, 1);
-        Product[] list = new Product[]{product2, product, product1};
-        assertArrayEquals(list, store.sortByPrice().toArray());
+    public void sortingByPrice() throws Exception {
+        Product p = new Product("Samsung", 50, 10);
+        Product p1 = new Product("Neo", 100, 10);
+        Product p2 = new Product("Fujitsu", 20, 10);
+        store.addProduct(p, 1);
+        store.addProduct(p1, 1);
+        store.addProduct(p2, 1);
+        Product[] sorted = new Product[]{p2, p, p1};
+        assertArrayEquals(sorted, store.sortByPrice().toArray());
     }
-
 }
