@@ -36,7 +36,6 @@ public class SumatorTest {
         assertTrue(result == math.sum("5", null));
     }
 
-
 }
 
 
