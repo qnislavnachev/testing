@@ -2,24 +2,14 @@ package task3;
 
 public class Product {
 
-    private final String name;
-    private final int price;
-    private final int maxQuantity;
+    public final String name;
+    public final int price;
+    public int quantity;
 
-    public Product(String name, int price, int maxQuantity) {
+    public Product(String name, int price, int quantity) {
         this.name = name;
         this.price = price;
-        this.maxQuantity = maxQuantity;
-    }
-
-    public int getMaxQuantity() {
-        return maxQuantity;
-
-    }
-
-    public int getPrice() {
-        return price;
-
+        this.quantity = quantity;
     }
 
     @Override
