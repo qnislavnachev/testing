@@ -11,7 +11,7 @@ public class ArrayCiltivator {
 
     public int getMinElement() {
         if (arr.length == 0) {
-            System.out.println("There is no elements!");
+            throw new ArrayOutOfElements("This is Empty array");
         }
         int min = arr[0];
         for (int i = 0; i < arr.length; i++) {

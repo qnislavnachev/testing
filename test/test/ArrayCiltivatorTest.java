@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import task2.ArrayCiltivator;
+import task2.ArrayOutOfElements;
 
 
 import java.io.ByteArrayOutputStream;
@@ -55,7 +56,12 @@ public class ArrayCiltivatorTest {
         ArrayCiltivator array = new ArrayCiltivator(arr);
         array.printArrayElements();
         assertEquals("[5, 3, 6]", out.toString());
-
     }
 
+    @Test(expected = ArrayOutOfElements.class)
+    public void emptyArray() throws Exception {
+        int[] arr = new int[]{};
+        ArrayCiltivator arrayCiltivator = new ArrayCiltivator(arr);
+        arrayCiltivator.getMinElement();
+    }
 }
