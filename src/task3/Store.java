@@ -3,50 +3,48 @@ package task3;
 import java.util.*;
 
 public class Store {
-    private Map<String, Product> storeList;
+    private Map<String, Product> products = new HashMap<>();
     private int maxQuantity;
 
-    public Store() {
-        storeList = new HashMap<>();
-        maxQuantity = 20;
+    public Store(int maxQuantity) {
+        this.maxQuantity = maxQuantity;
 
     }
 
     public int availableOfQuantity(String product) {
-        if (!storeList.containsKey(product)) {
+        if (!products.containsKey(product)) {
             return 0;
         }
-        Product p = storeList.get(product);
+        Product p = products.get(product);
         return p.quantity;
     }
 
     public void addProduct(Product product) {
-        Product p = storeList.get(product.name);
-        if ((storeList.containsKey(product.name) && p.quantity + product.quantity > maxQuantity) || product.quantity > maxQuantity) {
-            throw new NoEnoughSpace("No enough Space!");
+        Product p = products.get(product.name);
+        if (products.containsKey(product.name) && p.quantity + product.quantity > maxQuantity || product.quantity > maxQuantity) {
+            throw new WareHaouseException("No enough Space!");
         }
-        if (storeList.containsKey(product.name)) {
-            int newQuantity = storeList.get(product.name).quantity + product.quantity;
-            storeList.replace(product.name, new Product(product.name, product.price, newQuantity));
-        } else {
-            storeList.put(product.name, product);
-
+        if (products.containsKey(product.name)) {
+            int newQuantity = products.get(product.name).quantity + product.quantity;
+            products.replace(product.name, new Product(product.name, product.price, newQuantity));
+            return;
         }
+        products.put(product.name, product);
     }
 
     public void sellProduct(String product, int amount) {
         if (product == null || availableOfQuantity(product) < amount) {
-            throw new NoEnoughProducts("No Enough Products!");
+            throw new WareHaouseException("No Enough Products!");
         }
-        Product p = storeList.get(product);
+        Product p = products.get(product);
         int newAmount = availableOfQuantity(product) - amount;
-        storeList.put(product, new Product(product, p.price, newAmount));
+        products.put(product, new Product(product, p.price, newAmount));
 
 
     }
 
     public List<Product> sortByPrice() {
-        List<Product> list = new ArrayList<>(storeList.values());
+        List<Product> list = new ArrayList<>(products.values());
         Collections.sort(list, new Comparator<Product>() {
             @Override
             public int compare(Product o1, Product o2) {

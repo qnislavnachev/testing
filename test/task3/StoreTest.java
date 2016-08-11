@@ -5,30 +5,21 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class StoreTest {
-
-    private Store store = new Store();
-
+    Store store = new Store(20);
     @Test
-    public void addProductTest() throws Exception {
-        store.addProduct(new Product("Neo", 40, 5));
-        store.addProduct(new Product("Neo", 40, 3));
-        assertTrue(8 == store.availableOfQuantity("Neo"));
-    }
-
-    @Test
-    public void sellProductTest() throws Exception {
+    public void sellProduct() throws Exception {
         store.addProduct(new Product("Neo", 30, 10));
         store.sellProduct("Neo", 3);
         assertTrue(7 == store.availableOfQuantity("Neo"));
     }
 
     @Test(expected = NoEnoughProducts.class)
-    public void NoEnoughProductsInStoreToSell() throws Exception {
+    public void noEnoughProductsInStoreToSell() throws Exception {
         store.addProduct(new Product("Neo", 30, 5));
         store.sellProduct("Neo", 7);
     }
 
-    @Test(expected = NoEnoughSpace.class)
+    @Test(expected = WareHaouseException.class)
     public void filledWarehouse() throws Exception {
         store.addProduct(new Product("Neo", 30, 19));
         store.addProduct(new Product("Neo", 30, 5));
