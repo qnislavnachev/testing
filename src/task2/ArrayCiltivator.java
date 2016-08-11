@@ -32,8 +32,6 @@ public class ArrayCiltivator {
 
     public void printArrayElements() {
         System.out.print(Arrays.toString(arr));
-
-
     }
 
     public int[] reverseArray() {
@@ -44,5 +42,4 @@ public class ArrayCiltivator {
         }
         return arr;
     }
-
 }

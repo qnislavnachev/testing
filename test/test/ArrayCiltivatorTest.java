@@ -9,6 +9,7 @@ import task2.ArrayCiltivator;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 public class ArrayCiltivatorTest {
@@ -28,11 +29,13 @@ public class ArrayCiltivatorTest {
     public void getMinElementTest() throws Exception {
         int[] arr = new int[]{5, 3, 6};
         ArrayCiltivator array = new ArrayCiltivator(arr);
-        assertTrue(array.getMinElement() == 3);
+        int actual = array.getMinElement();
+        int expected = 3;
+        assertThat(actual, is(expected));
     }
 
     @Test
-    public void getSumTest() throws Exception {
+    public void getSum() throws Exception {
         int[] arr = new int[]{5, 3, 6};
         ArrayCiltivator array = new ArrayCiltivator(arr);
         assertTrue(array.getSum() == 14);
