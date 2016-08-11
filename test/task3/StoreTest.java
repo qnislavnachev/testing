@@ -6,23 +6,28 @@ import static org.junit.Assert.*;
 
 public class StoreTest {
     Store store = new Store(20);
+
     @Test
     public void sellProduct() throws Exception {
         store.addProduct(new Product("Neo", 30, 10));
         store.sellProduct("Neo", 3);
         assertTrue(7 == store.availableOfQuantity("Neo"));
     }
+    @Test (expected = WareHouseException.class)
+    public void sellingNullProduct() throws Exception {
+        store.sellProduct(null, 5);
+    }
 
-    @Test(expected = NoEnoughProducts.class)
+    @Test(expected = WareHouseException.class)
     public void noEnoughProductsInStoreToSell() throws Exception {
         store.addProduct(new Product("Neo", 30, 5));
         store.sellProduct("Neo", 7);
     }
 
-    @Test(expected = WareHaouseException.class)
+    @Test(expected = WareHouseException.class)
     public void filledWarehouse() throws Exception {
-        store.addProduct(new Product("Neo", 30, 19));
-        store.addProduct(new Product("Neo", 30, 5));
+        store.addProduct(new Product("Neo", 30, 21));
+
     }
 
     @Test

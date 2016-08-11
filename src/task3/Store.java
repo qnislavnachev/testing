@@ -22,7 +22,7 @@ public class Store {
     public void addProduct(Product product) {
         Product p = products.get(product.name);
         if (products.containsKey(product.name) && p.quantity + product.quantity > maxQuantity || product.quantity > maxQuantity) {
-            throw new WareHaouseException("No enough Space!");
+            throw new WareHouseException("No enough Space!");
         }
         if (products.containsKey(product.name)) {
             int newQuantity = products.get(product.name).quantity + product.quantity;
@@ -34,13 +34,11 @@ public class Store {
 
     public void sellProduct(String product, int amount) {
         if (product == null || availableOfQuantity(product) < amount) {
-            throw new WareHaouseException("No Enough Products!");
+            throw new WareHouseException("No Enough Products!");
         }
         Product p = products.get(product);
         int newAmount = availableOfQuantity(product) - amount;
         products.put(product, new Product(product, p.price, newAmount));
-
-
     }
 
     public List<Product> sortByPrice() {
